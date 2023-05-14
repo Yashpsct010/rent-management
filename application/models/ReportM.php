@@ -46,7 +46,7 @@ class ReportM extends CI_Model {
           
       function get_receiver_payments($from_date, $to_date, $receiver){
 
-      $sql = "SELECT amount, reference_id, payment_date, payment_receiver, property_id, flat_no FROM payment where payment_date BETWEEN '$from_date' AND '$to_date' and payment_receiver = '$receiver'";
+      $sql = "SELECT amount, reference_id, payment_date, payment_receiver, property_id, flat_no FROM payment where payment_date BETWEEN '$from_date' AND '$to_date' and payment_receiver = '$receiver' order by payment_date";
 
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -153,7 +153,7 @@ class ReportM extends CI_Model {
 
   public function get_payment_date($flat_no, $property_id, $month){
 
-    $query = "SELECT payment_date FROM payment where property_id = $property_id and flat_no = $flat_no and month = '$month'";
+    $query = "SELECT payment_date FROM payment where property_id = $property_id and flat_no = $flat_no and month <= '$month' order by month desc, payment_date desc";
 
     $result = $this->db->query($query);
     return $result->result_array();
@@ -205,8 +205,9 @@ $query = "SELECT SUM(amount) as amount FROM payment where property_id = $propert
 
   public function get_outstanding_report_details($property_id, $flat_no){
 
-    $query = "SELECT outstanding_amount.*, invoice.tenant_name, tenants.contact FROM tenants, outstanding_amount,invoice WHERE invoice.property_id = $property_id and outstanding_amount.property_id = $property_id and invoice.flat_no = outstanding_amount.flat_no and outstanding_amount.flat_no = $flat_no and outstanding_amount.`status`=1 and outstanding_amount.outstanding_amount > 0 and outstanding_amount.month = invoice.month and invoice.tenant_name = tenants.tenant_name ORDER BY outstanding_amount.`month` desc"; 
+    // $query = "SELECT outstanding_amount.*, invoice.tenant_name, tenants.contact FROM tenants, outstanding_amount,invoice WHERE invoice.property_id = $property_id and outstanding_amount.property_id = $property_id and invoice.flat_no = outstanding_amount.flat_no and outstanding_amount.flat_no = $flat_no and invoice.flat_no = tenants.flat_no and invoice.property_id = tenants.property_id and outstanding_amount.`status`=1 and outstanding_amount.outstanding_amount > 0 and outstanding_amount.month = invoice.month ORDER BY outstanding_amount.`month` desc"; 
 
+    $query = "SELECT outstanding_amount.*, tenants.tenant_name, tenants.contact FROM tenants, outstanding_amount WHERE outstanding_amount.property_id = $property_id and outstanding_amount.flat_no = $flat_no and tenants.flat_no = $flat_no and outstanding_amount.flat_no = tenants.flat_no and outstanding_amount.property_id = tenants.property_id and outstanding_amount.`status`=1 and outstanding_amount.outstanding_amount > 0 ORDER BY outstanding_amount.`month` desc";
     // print_r($query);
     // die();
     

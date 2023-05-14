@@ -380,15 +380,12 @@ if(!empty($data['invoice_number'][0]['invoice'])){
 		// die();
 		$data['outstanding_report_details'] = array();
 		
-		for($i = 0; $i < $data['flats'][0]['flats']; $i++){
+		for($i = 1; $i <= $data['flats'][0]['flats']; $i++){
 
 			$outstanding_amount = $this->ReportM->get_outstanding_report_details($data['property_id'], $i);
 
-			if(!empty($outstanding_amount)){
-
-
-				$data['outstanding_report_details'][$i]['flat_no'] = $outstanding_amount[0]['flat_no'];
-
+			if(!empty($outstanding_amount)){		
+				$data['outstanding_report_details'][$i]['flat_no'] = $outstanding_amount[0]['flat_no'];		
 				$flat = $this->ReportM->get_flat_name($data['property_id'], $data['outstanding_report_details'][$i]['flat_no']);
 				$data['outstanding_report_details'][$i]['flat_name'] = $flat[0]['flat_name'];
 				$data['outstanding_report_details'][$i]['outstanding_amount'] = $outstanding_amount[0]['outstanding_amount'];
@@ -397,16 +394,15 @@ if(!empty($data['invoice_number'][0]['invoice'])){
 				$data['outstanding_report_details'][$i]['month'] = $outstanding_amount[0]['month'];
 				$data['outstanding_report_details'][$i]['amount_received'] = $outstanding_amount[0]['amount_received'];
 				$data['outstanding_report_details'][$i]['total'] = $outstanding_amount[0]['total'];
+				$payment_date = $this->ReportM->get_payment_date($i, $property_id,$data['outstanding_report_details'][$i]['month']);
+				if(!empty($payment_date[0]['payment_date'])){
 				
+					$data['outstanding_report_details'][$i]['payment_date'] = date('d-m-Y',strtotime($payment_date[0]['payment_date']));
+				}else{
+					$data['outstanding_report_details'][$i]['payment_date'] = "";
+				}			
 			}
-			
-		// 	echo "<pre>";
-		// print_r($data['outstanding_report_details']);
 		}
-		
-		// 	echo "<pre>";
-		// print_r($data['outstanding_report_details']);
-		// die();
 
 		$this->load->view('Report_Monthwise/outstanding_amount_report_view', $data);
 	}
@@ -423,26 +419,6 @@ if(!empty($data['invoice_number'][0]['invoice'])){
 		$receiver = $_POST['pay_user'];
 		$head = $_POST['head'];
 		$amount = $_POST['amount'];
-
-		// if($receiver == 1){
-		// 	$receiver = "Mr. Ram Kripal Shah";
-		// } else if($receiver == 2){
-	
-		// 	$receiver = "Mr. Manoj Kumar Shah";
-		// }else if($receiver == 3){
-		// 	$receiver = "Dr. Indra Kumar Shah";
-		// }
-		// else if($receiver == 4){
-	
-		// 	$receiver = "Mr. MG";
-		// }
-		// else {
-	
-		// 		$receiver = "Mr. AG";
-		// }
-	// 		echo "<pre>";
-	// print_r($receiver);
-	// die();
 
 	    if($head == 1){
 		$head = "Waste";
