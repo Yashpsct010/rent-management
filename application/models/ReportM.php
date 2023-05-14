@@ -168,7 +168,7 @@ $query = "SELECT SUM(amount) as amount FROM payment where property_id = $propert
 
    public function get_tenant_name($flat_no, $property_id,$month){
 
-    $query = "SELECT tenants.tenant_name,contact,tenants.flat_name FROM invoice, tenants where invoice.property_id = $property_id and tenants.property_id = $property_id and invoice.flat_no = $flat_no and tenants.flat_no = $flat_no and tenants.tenant_name = invoice.tenant_name and `month`='$month' ";
+    $query = "SELECT tenants.tenant_name,contact,tenants.flat_name FROM invoice, tenants where invoice.property_id = $property_id and tenants.property_id = $property_id and invoice.flat_no = $flat_no and tenants.flat_no = $flat_no and `month`='$month' ";
     // print_r($query);
     // die();
     $result = $this->db->query($query);
