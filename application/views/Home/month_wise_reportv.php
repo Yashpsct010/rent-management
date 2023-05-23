@@ -1,6 +1,6 @@
 <?php
-
-// print_r($flat_name);
+// echo"<pre>";
+// print_r($tenant_entry_form_details);
 // die();
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 ?>
@@ -89,20 +89,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                     <div class="intro">
 
                         <h2 style="text-align:center;"><?php echo "Flat No.".$flat_no." (". $flat_name[0]['flat_name']. ")"; ?></h2>
-
+<h3 style="text-align:center;"><?php echo $flat_name[0]['tenant_name']; ?>&nbsp;<?php echo $flat_name[0]['joining_date']; ?><br>Mobile No. : <?php echo $flat_name[0]['contact']; ?></h3>
                         <br>
-                    <table class="table table-striped table-hover table-bordered" style="width:90%" align="center">
+                    <table class="table table-striped table-hover table-bordered" style="width:100%" align="center">
                         <thead class="thead-dark">
                             <tr>
                             <th scope="col" style="text-align:center;">S.No.</th>
                             <th scope="col" style="text-align:center;">Month</th>
                             <th style="text-align:center;">Invoice No.</th>
+                            <!-- <th style="text-align:center;">Date</th> -->
                             <th scope="col" style="text-align:center;">Rent</th>
                             <th scope="col" style="text-align:center;">Meter Reading <br> (Current - Previous) * rate</th>
                             <th scope="col" style="text-align:center;">Water Pump Charges <br>( no. of members * units )* rate</th>
                             <th scope="col" style="text-align:center;">Waste </th>
                             <th scope="col" style="text-align:center;">Miscellaneous</th>
                             <th scope="col" style="text-align:center;">Total</th>
+                            <th scope="col" style="text-align:center;">Outstanding Amount</th>
                             <th scope="col" style="text-align:center;">Total + Previous Outstanding</th>
     
                             <th scope="col" style="text-align:center;">Payment</th>
@@ -119,7 +121,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                             <td scope="row" style="text-align:center;"><?php echo $i ?></td>
                             <td style="text-align:center;"><?php echo $value['month'] ?></td>
                             <?php if(!empty($value['invoice_number'])) {?>
-                              <td style="color:green;"><?php echo $value['invoice_number'];?> </td>
+                              <td style="color:green;"><?php echo $value['invoice_number'];?><br><span style="color:blue"><?php echo date('d-m-Y',strtotime($value['timestamp']));?></span> </td>
+                              <!-- <td style="color:green;"><?php echo date('d-m-Y',strtotime($value['timestamp']))?> </td> -->
                               
                             <?php } else {?>
 <td>
@@ -155,6 +158,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                             <td><?php echo $value['waste'] ?></td>
                             <td><?php echo $value['miscellaneous'] ?></td>
                             <td><?php echo  round($total);  ?></td>
+                            <td style="text-align:center;"> <?php echo $value['outstanding_amount'];?></td>
                             <td><?php echo $value['total']; ?></td>
                             <td align="center">
                               <?php if($value['invoice_number']==$last_invoice){ ?>
@@ -170,7 +174,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
                                 <?php }} ?>
                             </td> 
-                            <td style="text-align:center;"><?php echo $value['amount_paid']; ?></td>                           
+                            <?php if(!empty($value['amount_paid'])){ ?>
+                            <td style="text-align:center;"><?php echo $value['amount_paid']; ?></td>    
+                            <?php }else{ ?>
+                            <td style="text-align:center;"><?php echo $value['amount_paid']; ?>Nil</td>    
+                            <?php } ?>
                             <td style="text-align:center;"> <?php echo $value['outstanding_amount'];?></td>
                             </tr>   
 

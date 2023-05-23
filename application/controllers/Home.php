@@ -372,7 +372,13 @@ public function edit_tenant_details(){
 					$data['tenant_entry_form_details'][$i]['invoice_number']="";
 					$to_date=date('Y-m-d');
 				}
-		
+		 	$data['date'] = $this->InvoiceM->check_invoice($property_id, $flat_no, $month);
+			 $data['tenant_entry_form_details'][$i]['timestamp'] = $data['date'][0]['timestamp'];
+		 	$data['payment_date'] = $this->HomeM->get_payment_date($property_id, $flat_no, $month);
+			 $data['tenant_entry_form_details'][$i]['paymode'] = $$data['payment_date'][0]['pay_mode'];
+			 $data['tenant_entry_form_details'][$i]['payment_date'] = $$data['payment_date'][0]['payment_date'];
+			 
+			// echo "<pre>";print_r($data['tenant_entry_form_details']);
 			// $previous_month =  date('Y-m', strtotime($month. ' -1 months')); 
 			$previous_month = date('Y-m', strtotime($month . '-01 -1 month'));
 			$previous_flat_invoice = $this->HomeM->get_invoive_number($data['property_id'],$previous_month, $data['flat_no']);
@@ -451,6 +457,7 @@ public function edit_tenant_details(){
 
 
 		}
+		// die();
 		$last_invoice = $this->HomeM->get_last_invoice($property_id,$flat_no);
 		if(!empty($last_invoice)){
 			$data['last_invoice'] = $last_invoice[0]['invoice'];
@@ -468,7 +475,7 @@ public function edit_tenant_details(){
 		// }
 
 		// echo "<pre>";
-		// print_r($data);
+		// print_r($data['tenant_entry_form_details']);
 		// die();
 
 
@@ -766,7 +773,7 @@ public function insert_payment(){
         $data['data'] = $data[0];
         $data['details'] = $this->InvoiceM->get_report_details_monthwise($property_id,$flat_no,$month);
         $data['outstanding_details'] = $this->InvoiceM->get_outstanding_details($property_id,$flat_no,$month);
-        
+        // print_r($data);die();
         // if(!empty($data)){
         //     $data['data'] = $data[0];
         // }

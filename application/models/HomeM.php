@@ -230,6 +230,17 @@ public function delete_tenant_relatives($property_id, $flat_no, $tenant_id){
     return $result->result_array();
   }
 
+  public function get_payment_date($flat_no, $property_id, $month){
+
+    $query = "SELECT * FROM payment where property_id = $property_id and flat_no = $flat_no and month = '$month'";
+
+    // print_r($query);
+    // die();
+
+    $result = $this->db->query($query);
+    return $result->result_array();
+  }
+
   public function get_previous_outstanding($property_id, $flat_no, $month){
 
     $query = "SELECT * FROM outstanding_amount where property_id = $property_id and flat_no = $flat_no and month = '$month'";
@@ -384,7 +395,7 @@ public function get_last_invoice($property_id, $flat_no){
   
   public function get_flat_name($property_id, $flat_no){
       
-    $query = " SELECT flat_name FROM tenants WHERE property_id = $property_id AND flat_no = $flat_no AND status = 1";
+    $query = " SELECT * FROM tenants WHERE property_id = $property_id AND flat_no = $flat_no AND status = 1";
 
     // print_r($query);
     // die();
