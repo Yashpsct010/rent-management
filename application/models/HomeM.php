@@ -218,6 +218,21 @@ public function delete_tenant_relatives($property_id, $flat_no, $tenant_id){
   //   $result = $this->db->query($query);
   //   return $result->result_array();
   // }
+  public function get_payment_date($flat_no, $property_id, $to_date, $from_date){
+
+    $query = "SELECT amount, `payment_date`,pay_mode FROM payment where property_id = $property_id and flat_no = $flat_no and payment_date between '$from_date' and '$to_date' order by payment_date desc";
+// print_r($query);die();
+    $result = $this->db->query($query);
+    return $result->result_array();
+  }
+
+  public function get_payment_todate($flat_no, $property_id, $to_date){
+
+    $query = "SELECT amount, `payment_date`,pay_mode FROM payment where property_id = $property_id and flat_no = $flat_no and payment_date <= '$to_date' order by payment_date desc";
+// print_r($query);die();
+    $result = $this->db->query($query);
+    return $result->result_array();
+  }
 
   public function get_tenant_amount_todate($flat_no, $property_id, $to_date){
 
@@ -230,16 +245,16 @@ public function delete_tenant_relatives($property_id, $flat_no, $tenant_id){
     return $result->result_array();
   }
 
-  public function get_payment_date($flat_no, $property_id, $month){
+  // public function get_payment_date($property_id, $flat_no, $month){
 
-    $query = "SELECT * FROM payment where property_id = $property_id and flat_no = $flat_no and month = '$month'";
+  //   $query = "SELECT * FROM payment where property_id = $property_id and flat_no = $flat_no and month = '$month'";
 
-    // print_r($query);
-    // die();
+  //   // print_r($query);
+  //   // die();
 
-    $result = $this->db->query($query);
-    return $result->result_array();
-  }
+  //   $result = $this->db->query($query);
+  //   return $result->result_array();
+  // }
 
   public function get_previous_outstanding($property_id, $flat_no, $month){
 

@@ -175,7 +175,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                 <?php }} ?>
                             </td> 
                             <?php if(!empty($value['amount_paid'])){ ?>
-                            <td style="text-align:center;"><?php echo $value['amount_paid']; ?></td>    
+                            <td style="text-align:center;"><?php echo $value['amount_paid']; ?><br><?php echo $value['pay_mode']; ?><br><span style="color:blue"><?php echo date('d-m-Y',strtotime($value['payment_date'])); ?></span></td>    
                             <?php }else{ ?>
                             <td style="text-align:center;"><?php echo $value['amount_paid']; ?>Nil</td>    
                             <?php } ?>
