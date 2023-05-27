@@ -15,12 +15,19 @@ class ReportM extends CI_Model {
         return $query->result_array();
       }
 
-      function get_no_of_flats($property_id){
+      // function get_no_of_flats($property_id){
     
-        $sql="SELECT flats from `property` where `property_id`= $property_id";    
+      //   $sql="SELECT flats from `property` where `property_id`= $property_id";    
+      //   $query = $this->db->query($sql);
+      //   return $query->result_array();
+      // }    
+
+      public function get_flat_no_and_flat_name($property_id)
+      {
+        $sql="SELECT flat_no,flat_name from `tenants` where `property_id`= $property_id AND status=1 ORDER BY flat_no ASC";    
         $query = $this->db->query($sql);
         return $query->result_array();
-      }    
+      }
 
       function get_payment_details($from_date, $to_date, $flat_no, $property_id){
 
@@ -377,6 +384,35 @@ $query = "SELECT SUM(amount) as amount FROM payment where property_id = $propert
     $result = $this->db->query($query);
     return $result->result_array(); 
   }
+
+   public function get_flat_no_combined($property_id)
+      {
+        $sql="SELECT flat_no,flat_name from `tenants` where `property_id`= $property_id AND status=1 ORDER BY flat_no ASC";    
+        $query = $this->db->query($sql);
+        return $query->result_array();
+      }
+
+   function get_payment_details_combined($from_date, $to_date, $flat_no, $property_id){
+
+       $sql = "SELECT DISTINCT  month  FROM payment where payment_date BETWEEN '$from_date' AND '$to_date' and property_id ='$property_id' AND flat_no = '$flat_no' ";
+  
+        // print_r($sql);
+        // die();
+  
+          $query = $this->db->query($sql);
+          return $query->result_array();
+        }
+
+     function get_payment_combined($month, $flat_no, $property_id){
+
+          $sql = "SELECT * FROM payment where month = '$month' and property_id ='$property_id' AND flat_no = '$flat_no'";
+    
+          // print_r($sql);
+          // die();
+    
+            $query = $this->db->query($sql);
+            return $query->result_array();
+          }    
 
 }
 

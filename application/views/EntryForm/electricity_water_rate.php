@@ -137,7 +137,9 @@
     <hr>
   </div>
 <script> window.onload=function(){
-   var r=confirm("Do you want to change Something?\n1) Change in family members\n2) Rent");
+   // var r=confirm("Do you want to change Something?\n1) Change in family members\n2) Rent");
+
+   var r = confirm(" Update Expenses and Tenant Details ?\n Please confirm if you would like to review and update ")
    if (r==true) {
    }
    else {

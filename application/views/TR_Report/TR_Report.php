@@ -1,6 +1,6 @@
 <?php
 // echo "<pre>";
-// print_r($payment_details);
+// print_r($flat_no);
 // die();  
 ?>
 <!DOCTYPE html>
@@ -106,19 +106,19 @@
                                 foreach ($payment_details as $key => $value) { ?>
                                     
                             <tr>
-                            <td rowspan="<?php echo sizeof($value['payments'])+1; ?>" style="text-align: center;"><?php echo $i ?></td>
-                            <td rowspan="<?php echo sizeof($value['payments'])+1; ?>" style="text-align: center;"><?php echo $value['month']; ?></td>
+                            <td rowspan="<?php echo sizeof($value['payments'])+1; ?>" style="text-align: center; vertical-align: middle;"><?php echo $i ?></td>
+                            <td rowspan="<?php echo sizeof($value['payments'])+1; ?>" style="text-align: center; vertical-align: middle;"><?php echo $value['month']; ?></td>
                             <?php foreach($value['payments'] as $v){ ?>
                             <tr>
-                            <td style="text-align: center;"><?php echo $v['amount']; ?></td>
+                            <td style="text-align: center;"><?php echo "Rs" ." ".$v['amount'] ." (".$v['payment_date'].")" ; ?></td>
                             <td style="text-align: center;"><?php echo $v['pay_mode']; ?></td>
                             <td style="text-align: center;"><?php echo $v['reference_id']; ?></td>
                             <td style="text-align: center;"><?php echo $v['payment_receiver']; ?></td>
                             </tr>
-                            <?php } ?>
+                            <?php }$i++ ?>
                             </tr>
 
-                            <?php } ?>
+                            <?php }  ?>
                         </tbody>
                         </table>
                     </div>
