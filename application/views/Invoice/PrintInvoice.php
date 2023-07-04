@@ -14,9 +14,6 @@
         margin:0px;
         padding:0px;   
     }
-    body{
-      /* display:flex;       */
-    }
     </style>
   </head>
   <body>
@@ -92,7 +89,7 @@
             <hr style="margin: 3px 0px;">
             <p style="margin-bottom:0px;color:blue;">भुगतान दिनांक: <b><?php echo date("d-m-Y",strtotime($f['duedate'])); ?></b> तक आवश्यक |</p>
             <!-- <h4 style="margin:15px 0px 0px 30px;">बाकी : <b>₹ <?php echo $f['outstanding_amount']; ?></b></h4> -->
-            <span style="font: size 6px;px;color:blue;">
+            <span style="font: size 6px;color:blue;">
               <h4 style="margin:15px 0px 0px 0px;"><?php if($f['outstanding_amount']>=0){ ?>बाकी : </span><span style="font: size 8px;color:black;"><b>₹ <?php echo $f['outstanding_amount']; ?></b><?php }else{ ?>जमा: <b>₹ <?php echo (0-$f['outstanding_amount']); ?></b><?php } ?></h4>
               </span>
             <!-- <p style="margin-bottom:0px; float:right; margin-right:50px;">ह०</p> -->
