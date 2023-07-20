@@ -1,6 +1,6 @@
 <?php
 // echo "<pre>";
-// print_r($flats);
+// print_r($property_name);
 // die();  
 ?>
 <!DOCTYPE html>
@@ -27,12 +27,14 @@
         }
 
         .intro{
-            font-family: Comic Sans MS;
+/*            font-family: Comic Sans MS;*/
+               font-family: Times New Roman;
         }
 
         table {
           background-color: #fcfbf8;
-          font-family: Comic Sans MS;
+    /*  font-family: Comic Sans MS;*/
+            font-family: Times New Roman;
           border-collapse: collapse;
           width: 100%;
         }
@@ -73,7 +75,8 @@
         body {
 /*            background-color: #fcfbf8;*/
             color: black;
-            font-family: Comic Sans MS;
+/*            font-family: Comic Sans MS;*/
+            font-family: Times New Roman;
         }
         
     </style>
@@ -83,18 +86,32 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                <h3 style="text-align:center;">Combined TR</h3>
+                <h2><center><?php echo $property_name[0]['property_name'];?></center></h2>
+                <h4 style="text-align:center;text-decoration:underline; color:red;">COMBINED TR REPORT</h4>
+
+                        <div class="intro">
+                            <h5 style="font-style:italic;"><center><span><b>From:</b><span style="font-weight:normal; font-style:italic;"><?php echo $from_date;?> </span></span> 
+
+                                <span> &#x00A0; &#x00A0; &#x00A0;&#x00A0;&#x00A0;<b>To:</b> <span style="font-weight:normal; font-style:italic;"><?php echo $to_date;?> </span></span></center>
+
+                            </h5>
+                        </div>
+
+                        <br>
+                         <!-- <h6 style="text-align:center;"><b>Printed On: </b><span id='date-time' style="font-style: italic;"></span></h6> -->
+                         <h6 style=""><b>Printed On: </b><span id='date-time' style="font-style: italic;"></span></h6>
+
                     <?php foreach ($flats as $flat) { ?>
                         <br>
                         <div class="intro">
-                            <h4 style="text-align:center;">Flat No. <?php echo $flat['flat_no']." (".$flat['flat_name'].")"; ?></h4>
+                            <h6 style="text-align:center;color:blue;font-weight: bold;">Flat No. <?php echo $flat['flat_no']." (".$flat['flat_name'].")"; ?></h6>
                             <br>
                             <table class="table table-striped table-hover table-bordered" style="width:90%" align="center">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col" style="text-align:center;">S.No.</th>
                                         <th scope="col" style="text-align:center;">Month</th>
-                                        <th scope="col" style="text-align:center;">Amount Received</th>
+                                        <th scope="col" style="text-align:center;">Amount Received (Date)</th>
                                         <th scope="col" style="text-align:center;">Mode of Payment</th>
                                         <th scope="col" style="text-align:center;">Reference ID</th>
                                         <th scope="col" style="text-align:center;">Receiver</th>
@@ -138,5 +155,10 @@
 
 
 </html>
+
+<script>
+var dt = new Date();
+document.getElementById('date-time').innerHTML=dt;
+</script>
 
 

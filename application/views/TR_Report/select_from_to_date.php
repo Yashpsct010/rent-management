@@ -72,7 +72,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-12">
-
+<div style="font-style:italic; font-size: 23px; color:red;"><b>You are at- TR Report Page !</b> 
+                    </div>
 					<div class="intro">
 							 <h3><center>TR Report</center></h3>
 							</div>
