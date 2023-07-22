@@ -120,7 +120,7 @@ class ReportM extends CI_Model {
   
     public function get_report_details_monthwise($month,$property_id){
 
-    $query = "SELECT entry_form_details.* FROM entry_form_details WHERE `property_id` =$property_id AND `month` = '$month' AND status =1 ORDER BY `month`, flat_no";
+    $query = "SELECT entry_form_details.* FROM entry_form_details WHERE `property_id` =$property_id AND `month` = '$month' ORDER BY `month`, flat_no";
     // $query = "SELECT DISTINCT entry_form_details.*, payment.amount
     // FROM entry_form_details
     // INNER JOIN payment ON entry_form_details.property_id = payment.property_id AND entry_form_details.month =payment.month
@@ -186,7 +186,7 @@ $query = "SELECT SUM(amount) as amount FROM payment where property_id = $propert
 
    public function get_tenant_name($flat_no, $property_id,$month){
 
-    $query = "SELECT tenants.tenant_name,contact,entry_form_details.flat_name FROM invoice, tenants, entry_form_details where invoice.property_id = $property_id and tenants.property_id = $property_id and entry_form_details.property_id = $property_id and invoice.flat_no = $flat_no and entry_form_details.flat_no = $flat_no and tenants.flat_no = $flat_no and invoice.month='$month' and entry_form_details.month = '$month' and tenants.status = 1";
+    $query = "SELECT invoice.tenant_name,contact,entry_form_details.flat_name FROM invoice, tenants, entry_form_details where invoice.property_id = $property_id and tenants.property_id = $property_id and entry_form_details.property_id = $property_id and invoice.flat_no = $flat_no and entry_form_details.flat_no = $flat_no and tenants.flat_no = $flat_no and invoice.month='$month' and entry_form_details.month = '$month'";
     // print_r($query);
     // die();
     $result = $this->db->query($query);
