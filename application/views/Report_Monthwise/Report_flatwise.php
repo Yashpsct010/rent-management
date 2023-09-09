@@ -78,7 +78,6 @@
     </style>
 </head>
 <body>
-
     <!-- <div class="containe-fluid"> -->
 <div class="row mt-3 ml-3 mr-3">
 <div class="col-lg-12">
@@ -110,7 +109,7 @@
                             <th scope="col" style="text-align:center;">Misc.</th>
                             <th scope="col" style="text-align:center;">Total</th>
                             <th scope="col" style="text-align:center; width:10%">Total + Previous Outstanding</th>
-                            <th scope="col" style="text-align:center;">Amount Paid</th>
+                            <th scope="col" style="text-align:center; width:%;">Amount Paid</th>
                             <th scope="col" style="text-align:center;">Outstanding Amount</th>
                             </tr>
                         </thead>

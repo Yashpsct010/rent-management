@@ -21,13 +21,13 @@ class InvoiceM extends CI_Model {
       }
 
       function check_invoice($property_id, $flat_no, $month){
-        $sql = " SELECT * from invoice where `property_id`=$property_id and `flat_no` = $flat_no and `month`='$month'";
+        $sql = " SELECT * from invoice where `property_id`=$property_id and `flat_no` = $flat_no and `month`='$month' and status=1";
         $query = $this->db->query($sql);
         return $query->result_array();
       }
 
       function getFlatDetails($property_id, $flat_no, $month){
-        $sql = " SELECT entry_form_details.*, tenants.tenant_name from entry_form_details,tenants where entry_form_details.`property_id`=$property_id and entry_form_details.flat_no=$flat_no and entry_form_details.`month`='$month' and tenants.property_id=$property_id and tenants.flat_no=$flat_no and tenants.status=1";
+        $sql = " SELECT entry_form_details.*, tenants.tenant_name from entry_form_details,tenants where entry_form_details.`property_id`=$property_id and entry_form_details.flat_no=$flat_no and entry_form_details.`month`='$month' and tenants.property_id=$property_id and tenants.flat_no=$flat_no and tenants.status=1 and entry_form_details.status=1";
 
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -58,7 +58,7 @@ class InvoiceM extends CI_Model {
       }
 
       function update_invoice($invoice, $property_id, $flat_no, $month, $tenant_name, $units,$invoice_date){
-        $sql = " UPDATE `invoice` SET `tenant_name`='$tenant_name', `electricity_units`=$units, `timestamp` = '$invoice_date'  WHERE `invoice`='$invoice' and `property_id`=$property_id and `flat_no`=$flat_no and `month`='$month'";
+        $sql = " UPDATE `invoice` SET `tenant_name`='$tenant_name', `electricity_units`=$units, `timestamp` = '$invoice_date',status=1  WHERE `invoice`='$invoice' and `property_id`=$property_id and `flat_no`=$flat_no and `month`='$month'";
         $query = $this->db->query($sql);
         return ;
       }
@@ -70,7 +70,7 @@ class InvoiceM extends CI_Model {
       }
 
       function get_report_details_monthwise($property_id,$flat_no,$month){
-        $sql = " SELECT * from entry_form_details where `property_id`=$property_id and `flat_no`=$flat_no and `month`='$month'";
+        $sql = " SELECT * from entry_form_details where `property_id`=$property_id and `flat_no`=$flat_no and `month`='$month' and status=1";
         $query = $this->db->query($sql);
         return $query->result_array();
       }
@@ -139,7 +139,7 @@ class InvoiceM extends CI_Model {
       }
       public function get_previous_outstanding($property_id, $flat_no, $month){
 
-    $query = "SELECT * FROM outstanding_amount where property_id = $property_id and flat_no = $flat_no and month = '$month'";
+    $query = "SELECT * FROM outstanding_amount where property_id = $property_id and flat_no = $flat_no and month = '$month' and status = 1";
 
     // print_r($query);
     // die();

@@ -50,17 +50,6 @@ class ReportM extends CI_Model {
             $query = $this->db->query($sql);
             return $query->result_array();
           }
-
-          function get_flat_name_month_wise($month, $flat_no, $property_id){
-
-            $sql = "SELECT flat_name FROM entry_form_details where month = '$month' and property_id ='$property_id' AND flat_no = '$flat_no'";
-      
-            // print_r($sql);
-            // die();
-      
-              $query = $this->db->query($sql);
-              return $query->result_array();
-            }
           
       function get_receiver_payments($from_date, $to_date, $receiver){
 
@@ -120,7 +109,7 @@ class ReportM extends CI_Model {
   
     public function get_report_details_monthwise($month,$property_id){
 
-    $query = "SELECT entry_form_details.* FROM entry_form_details WHERE `property_id` =$property_id AND `month` = '$month' ORDER BY `month`, flat_no";
+    $query = "SELECT entry_form_details.* FROM entry_form_details WHERE `property_id` =$property_id AND `month` = '$month' AND status =1 ORDER BY `month`, flat_no";
     // $query = "SELECT DISTINCT entry_form_details.*, payment.amount
     // FROM entry_form_details
     // INNER JOIN payment ON entry_form_details.property_id = payment.property_id AND entry_form_details.month =payment.month
@@ -152,7 +141,7 @@ class ReportM extends CI_Model {
 
      public function get_tenant_amount($flat_no, $property_id, $to_date, $from_date){
 
-    $query = "SELECT SUM(amount) as amount FROM payment where property_id = $property_id and flat_no = $flat_no and status = 1 and payment_date between '$from_date' and '$to_date' order by payment_date";
+    $query = "SELECT SUM(amount) as amount FROM payment where property_id = $property_id and flat_no = $flat_no and payment_date between '$from_date' and '$to_date' order by payment_date";
 
     $result = $this->db->query($query);
     return $result->result_array();
@@ -160,7 +149,7 @@ class ReportM extends CI_Model {
 
   public function get_tenant_amount_todate($flat_no, $property_id, $to_date){
 
-    $query = "SELECT sum(amount) as amount FROM payment where property_id = $property_id and flat_no = $flat_no and status = 1 and payment_date <= '$to_date' order by payment_date";
+    $query = "SELECT sum(amount) as amount FROM payment where property_id = $property_id and flat_no = $flat_no and payment_date <= '$to_date' order by payment_date";
 
     // print_r($query);
     // die();
@@ -186,7 +175,7 @@ $query = "SELECT SUM(amount) as amount FROM payment where property_id = $propert
 
    public function get_tenant_name($flat_no, $property_id,$month){
 
-    $query = "SELECT invoice.tenant_name,contact,entry_form_details.flat_name FROM invoice, tenants, entry_form_details where invoice.property_id = $property_id and tenants.property_id = $property_id and entry_form_details.property_id = $property_id and invoice.flat_no = $flat_no and entry_form_details.flat_no = $flat_no and tenants.flat_no = $flat_no and invoice.month='$month' and entry_form_details.month = '$month'";
+    $query = "SELECT tenants.tenant_name,contact,tenants.flat_name FROM invoice, tenants where invoice.property_id = $property_id and tenants.property_id = $property_id and invoice.flat_no = $flat_no and tenants.flat_no = $flat_no and `month`='$month' ";
     // print_r($query);
     // die();
     $result = $this->db->query($query);

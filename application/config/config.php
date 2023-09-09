@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/RMS/';
-
+$config['base_url'] = 'http://localhost/rmsnew/';
+// $config['base_url'] = 'https://rent-management.000webhostapp.com/';
 /*
 |--------------------------------------------------------------------------
 | Index File
